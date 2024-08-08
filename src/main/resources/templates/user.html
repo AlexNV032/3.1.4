@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-custom {
+            background-color: #000;
+            color: #fff;
+        }
+        .navbar-custom a {
+            color: #fff;
+        }
+        .white-cell {
+            background: #ffffff;
+        }
+        .grey-cell {
+            background: #f8f9fa;
+        }
+        .grey1-cell {
+            background: #f7f7f7;
+        }
+        .white-font {
+            font-weight: normal;
+            color: white;
+        }
+        .white-bold-font {
+            font-weight: bold;
+            color: white;
+        }
+        .table-striped th, .table-striped td {
+            border: none;
+        }
+        .table-striped thead th {
+            border-top: 1px solid #dee2e6;
+        }
+        .table-striped tbody tr {
+            border-bottom: 1px solid #dee2e6;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container-fluid">
+        <span class="navbar-text">
+            <span class="white-bold-font" th:text="${user.email}">admin@mail.ru</span>
+            <span class="white-font" th:text="' with roles: ' + ${#strings.arrayJoin(user.roles.toArray(), ', ')}"> with roles: Admin</span>
+        </span>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-3">
+        <div class="list-group my-3">
+            <a class="list-group-item list-group-item-action active" data-toggle="list">User</a>
+        </div>
+    </div>
+    <div class="col-9 grey-cell">
+        <div class="row mx-3 my-3">
+            <h2>User Information Page</h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr class="grey1-cell">
+                    <th scope="col">About user</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="white-cell">
+                    <td>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="white-cell">Id</th>
+                                <th class="white-cell">First Name</th>
+                                <th class="white-cell">Last Name</th>
+                                <th class="white-cell">Age</th>
+                                <th class="white-cell">Email</th>
+                                <th class="white-cell">Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${user.id}">1</td>
+                                <td th:text="${user.firstname}">John</td>
+                                <td th:text="${user.lastname}">Doe</td>
+                                <td th:text="${user.age}">30</td>
+                                <td th:text="${user.email}">john.doe@example.com</td>
+                                <td th:text="${#strings.arrayJoin(user.roles.toArray(), ', ')}">Admin</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
